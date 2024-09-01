@@ -16,7 +16,7 @@ def main():
                 print("Autenticado exitosamente")
 
                 while True:
-                    print("\nOpciones: [1] Crear tarea [2] Actualizar tarea [3] Eliminar tarea [4] Listar tareas [5] Cambiar estado de tarea [6] Cerrar sesión")
+                    print(f"\nOpciones: [1] Crear tarea [2] Actualizar tarea [3] Eliminar tarea [4] Listar tareas [5] Cambiar estado de tarea [6] Cerrar sesión")
                     task_choice = input("Seleccione una opción: ")
 
                     if task_choice == '1':
@@ -24,23 +24,23 @@ def main():
                         description = input("Descripción: ")
                         due_date = input("Fecha de vencimiento (YYYY-MM-DD): ")
                         label = input("Etiqueta: ")
-                        create_task(title, description, due_date, label)
+                        create_task(title, description, due_date, label, username)
 
                     elif task_choice == '2':
-                        update_task()
+                        update_task(username)
 
                     elif task_choice == '3':
-                        delete_task()
+                        delete_task(username)
 
                     elif task_choice == '4':
                         filters = {}
                         status = input("Filtrar por estado (pendiente/en progreso/completada, dejar vacío para no filtrar): ")
                         if status:
                             filters['status'] = status
-                        list_tasks(filters)
+                        list_tasks(username, filters)
 
                     elif task_choice == '5':
-                        change_task_status()
+                        change_task_status(username)
 
                     elif task_choice == '6':
                         print("Cerrando sesión...")
@@ -69,4 +69,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -6,26 +6,28 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['task_manager']
 tasks_collection = db['tasks']
 
-def create_task(title, description, due_date, label):
+def create_task(title, description, due_date, label, username):
+    task = {
+        "title": title,
+        "description": description,
+        "due_date": due_date,
+        "label": label,
+        "status": "pendiente",  # Estado inicial
+        "created_at": datetime.now(),
+        "username": username  # Asociar la tarea al usuario
+    }
     try:
-        task = {
-            'title': title,
-            'description': description,
-            'due_date': due_date,
-            'label': label,
-            'status': 'pendiente',
-            'created_at': datetime.now()
-        }
         tasks_collection.insert_one(task)
-        log_info(f'Tarea creada: {title}')
+        log_info(f'Tarea creada para el usuario {username}')
+        print("Tarea creada exitosamente.")
     except Exception as e:
         log_error(f'Error al crear tarea: {e}')
 
-def update_task():
-    tasks = list_tasks_with_indices()
+
+def update_task(username):
+    tasks = list_tasks_with_indices(username)
     
     if not tasks:
-        print(f"No hay tareas")
         return
 
     try:
@@ -47,46 +49,62 @@ def update_task():
             updates['label'] = label
         
         tasks_collection.update_one({'_id': selected_task['_id']}, {'$set': updates})
-        log_info(f'Tarea actualizada: {selected_task["_id"]}')
+        log_info(f'Tarea actualizada: {selected_task["_id"]} por el usuario {username}')
         print("Tarea actualizada exitosamente.")
     except (ValueError, IndexError):
         print("Selección inválida.")
-        log_warning('Selección inválida en la actualización de tarea.')
+        log_warning(f'Selección inválida en la actualización de tarea para el usuario {username}.')
     except Exception as e:
-        log_error(f'Error al actualizar tarea: {e}')
+        log_error(f'Error al actualizar tarea para el usuario {username}: {e}')
 
 
-def delete_task():
-    tasks = list_tasks_with_indices()
-    
-    if not tasks:
-        print(f"No hay tareas")
-        return
-
+def delete_task(username):
     try:
-        task_num = int(input("Seleccione el número de la tarea que desea eliminar: "))
-        selected_task = tasks[task_num - 1]
+        # Listar tareas con índices
+        tasks = list_tasks_with_indices(username)
         
-        tasks_collection.delete_one({'_id': selected_task['_id']})
-        log_info(f'Tarea eliminada: {selected_task["_id"]}')
-        print("Tarea eliminada exitosamente.")
+        if not tasks:
+            return  # Salir si no hay tareas para eliminar
+
+        # Solicitar al usuario que seleccione una tarea para eliminar
+        task_num = int(input("Seleccione el número de la tarea que desea eliminar: "))
+        
+        # Validar selección
+        if task_num < 1 or task_num > len(tasks):
+            print("Selección inválida.")
+            return
+
+        selected_task = tasks[task_num - 1]
+        task_id = selected_task['_id']
+        
+        # Confirmar eliminación
+        confirmation = input(f"¿Está seguro de que desea eliminar la tarea '{selected_task['title']}'? (s/n): ").lower()
+        if confirmation == 's':
+            tasks_collection.delete_one({'_id': task_id})
+            log_info(f'Tarea eliminada: {task_id} por el usuario {username}')
+            print("Tarea eliminada exitosamente.")
+        else:
+            print("Eliminación cancelada.")
     except (ValueError, IndexError):
         print("Selección inválida.")
-        log_warning('Selección inválida en la eliminación de tarea.')
+        log_warning(f'Selección inválida en la eliminación de tarea para el usuario {username}.')
     except Exception as e:
-        log_error(f'Error al eliminar tarea: {e}')
+        log_error(f'Error al eliminar tarea para el usuario {username}: {e}')
+        print("Ocurrió un error al eliminar la tarea.")
 
 
-def list_tasks(filters=None):
+
+def list_tasks(username, filters=None):
     try:
         query = filters if filters else {}
+        query["username"] = username  # Filtrar por usuario
         tasks = tasks_collection.find(query)
 
-        task_list = list(tasks)  # Convertimos el cursor en una lista
-
+        task_list = list(tasks)  # Convertir el cursor en una lista
+        
         if len(task_list) == 0:
             print("No se encontraron tareas.")
-            log_info("No se encontraron tareas para listar.")
+            log_info(f"No se encontraron tareas para el usuario {username}.")
             return
 
         for task in task_list:
@@ -100,53 +118,77 @@ def list_tasks(filters=None):
             print(f"Creado en: {task['created_at'].strftime('%Y-%m-%d %H:%M:%S')}")
             print(f"{'-'*40}\n")
         
-        log_info('Listado de tareas consultado')
+        log_info(f'Listado de tareas consultado para el usuario {username}')
     except Exception as e:
-        log_error(f'Error al listar tareas: {e}')
+        log_error(f'Error al listar tareas para el usuario {username}: {e}')
         print("Ocurrió un error al listar las tareas.")
 
 
 
-def change_task_status():
-    tasks = list_tasks_with_indices()
-    
-    if not tasks:
-        print(f"No hay tareas")
-        return
-
+def change_task_status(username):
     try:
-        task_num = int(input("Seleccione el número de la tarea que desea cambiar de estado: "))
-        selected_task = tasks[task_num - 1]
+        # Listar tareas con índices
+        tasks = list_tasks_with_indices(username)
         
-        print(f"Estado actual: {selected_task['status']}")
-        new_status = input("Ingrese el nuevo estado (pendiente/en progreso/completada): ").strip().lower()
+        if not tasks:
+            return  # Salir si no hay tareas para cambiar el estado
+
+        # Solicitar al usuario que seleccione una tarea para cambiar su estado
+        task_num = int(input("Seleccione el número de la tarea cuyo estado desea cambiar: "))
+        
+        # Validar selección
+        if task_num < 1 or task_num > len(tasks):
+            print("Selección inválida.")
+            return
+
+        selected_task = tasks[task_num - 1]
+        task_id = selected_task['_id']
+        
+        # Mostrar el estado actual y solicitar el nuevo estado
+        print(f"Estado actual de '{selected_task['title']}': {selected_task['status']}")
+        new_status = input("Ingrese el nuevo estado (pendiente, en progreso, completada): ").lower()
 
         if new_status in ['pendiente', 'en progreso', 'completada']:
-            tasks_collection.update_one({'_id': selected_task['_id']}, {'$set': {'status': new_status}})
-            log_info(f'Status de la tarea {selected_task["_id"]} cambiado a {new_status}')
+            tasks_collection.update_one({'_id': task_id}, {'$set': {'status': new_status}})
+            log_info(f'Estado de tarea actualizado: {task_id} por el usuario {username} a {new_status}')
             print("Estado de la tarea actualizado exitosamente.")
         else:
             print("Estado no válido.")
-            log_warning('Intento de cambio a un estado no válido.')
+            log_warning(f'Intento de actualizar a un estado no válido para la tarea {task_id} por el usuario {username}.')
     except (ValueError, IndexError):
         print("Selección inválida.")
-        log_warning('Selección inválida en el cambio de estado de tarea.')
+        log_warning(f'Selección inválida en el cambio de estado de tarea para el usuario {username}.')
     except Exception as e:
-        log_error(f'Error al cambiar estado de la tarea: {e}')
+        log_error(f'Error al cambiar el estado de la tarea para el usuario {username}: {e}')
+        print("Ocurrió un error al cambiar el estado de la tarea.")
 
 
-def list_tasks_with_indices(filters=None):
-    query = filters if filters else {}
-    tasks = tasks_collection.find(query)
-    task_list = list(tasks)  # Convertimos el cursor en una lista para reutilizarla
-    
-    if len(task_list) == 0:
-        print("No se encontraron tareas.")
+
+def list_tasks_with_indices(username, filters=None):
+    try:
+        # Asegurarse de que filters sea un diccionario, si no se pasa nada se crea un diccionario vacío
+        query = filters if filters else {}
+        query["username"] = username  # Filtrar por el nombre de usuario
+
+        tasks = tasks_collection.find(query)
+
+        task_list = list(tasks)  # Convertimos el cursor en una lista
+
+        if len(task_list) == 0:
+            print("No se encontraron tareas.")
+            log_info(f"No se encontraron tareas para el usuario {username}.")
+            return []
+
+        # Mostrar tareas con índices
+        for i, task in enumerate(task_list, start=1):
+            print(f"{i}. Título: {task['title']}, Descripción: {task['description']}, Estado: {task['status']}")
+
+        return task_list
+
+    except Exception as e:
+        log_error(f'Error al listar tareas para el usuario {username}: {e}')
+        print("Ocurrió un error al listar las tareas.")
         return []
-    
-    for idx, task in enumerate(task_list, start=1):
-        print(f"[{idx}] {task['title']} (Estado: {task['status']})")
-    
-    return task_list
+
 
 
