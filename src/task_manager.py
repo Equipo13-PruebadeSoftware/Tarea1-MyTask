@@ -3,12 +3,38 @@ from datetime import datetime
 from logger import log_info, log_warning, log_error
 from datetime import datetime
 import json
+import re
 
 # Conectar con base de datos
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://mongo:27017/')
 db = client['task_manager']
 tasks_collection = db['tasks'] # Colección para tareas
 
+# Función para cargar etiquetas desde un archivo JSON
+def load_labels(filename="/data/labels.json"):
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)
+            return data.get("labels", [])
+    except FileNotFoundError:
+        print("Archivo de etiquetas no encontrado. Usando etiquetas por defecto.")
+        return ["urgente", "personal", "trabajo", "proyecto", "sin etiqueta"]
+    except json.JSONDecodeError:
+        print("Error al leer el archivo de etiquetas. Usando etiquetas por defecto.")
+        return ["urgente", "personal", "trabajo", "proyecto", "sin etiqueta"]
+
+# Función para cargar estados desde un archivo JSON
+def load_statuses(filename="statuses.json"):
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)
+            return data.get("statuses", [])
+    except FileNotFoundError:
+        print("Archivo de estados no encontrado. Usando estados por defecto.")
+        return ["pendiente", "en progreso", "completada"]
+    except json.JSONDecodeError:
+        print("Error al leer el archivo de estados. Usando estados por defecto.")
+        return ["pendiente", "en progreso", "completada"]
 
 # Crear tarea  
 def create_task(title, description, due_date, label, username):
@@ -28,7 +54,7 @@ def create_task(title, description, due_date, label, username):
     except Exception as e:
         log_error(f'Error al crear tarea: {e}')
 
-# Actualizar datos de tareas
+# Función para actualizar datos de tareas
 def update_task(username):
     tasks = list_tasks_with_indices(username)
     
@@ -84,7 +110,7 @@ def update_task(username):
     except Exception as e:
         log_error(f'Error al actualizar tarea para el usuario {username}: {e}')
 
-# Borrar tarea
+# Función para borrar tarea
 def delete_task(username):
     try:
         # Listar tareas con índices
@@ -119,20 +145,43 @@ def delete_task(username):
         log_error(f'Error al eliminar tarea para el usuario {username}: {e}')
         print("Ocurrió un error al eliminar la tarea.")
 
-# Listar tareas
+# Función para mostrar las tareas co indices y datos, se puede filtrar las tareas a mostrar.
+# status -> utilizado para cambiar valores a mostrar
 def list_tasks(username, filters=None):
     try:
-        query = filters if filters else {}
-        query["username"] = username  # Filtrar por usuario
+        query = {"username": username}  # Filtrar por usuario
+
+        # Aplicar filtros adicionales si se proporcionan
+        if filters:
+            for key, value in filters.items():
+                if isinstance(value, dict):
+                    if "$regex" in value:
+                        # Aplicar filtro de expresión regular
+                        regex = re.compile(value["$regex"], re.IGNORECASE)  # Insensible a mayúsculas
+                        query[key] = {"$regex": regex}
+                    elif "$gte" in value or "$lte" in value:
+                        # Aplicar filtro de rango de fechas
+                        date_range = {}
+                        if "$gte" in value:
+                            date_range["$gte"] = value["$gte"]
+                        if "$lte" in value:
+                            date_range["$lte"] = value["$lte"]
+                        query[key] = date_range
+                else:
+                    # Aplicar otros tipos de filtros
+                    query[key] = value
+
+        # Consultar la base de datos con el filtro aplicado
         tasks = tasks_collection.find(query)
 
         task_list = list(tasks)  # Convertir el cursor en una lista
         
         if len(task_list) == 0:
             print("No se encontraron tareas.")
-            log_info(f"No se encontraron tareas para el usuario {username}.")
+            log_info(f"No se encontraron tareas para el usuario {username} con filtros: {filters}.")
             return
 
+        # Mostrar tareas
         for task in task_list:
             print(f"\n{'-'*40}")
             print(f"ID: {task['_id']}")
@@ -148,7 +197,6 @@ def list_tasks(username, filters=None):
     except Exception as e:
         log_error(f'Error al listar tareas para el usuario {username}: {e}')
         print("Ocurrió un error al listar las tareas.")
-
 # Cambiar estado de las tareas
 def change_task_status(username):
     try:
@@ -199,8 +247,8 @@ def change_task_status(username):
         log_error(f'Error al cambiar el estado de la tarea para el usuario {username}: {e}')
         print("Ocurrió un error al cambiar el estado de la tarea.")
 
-# Taeas archivadas
-def list_filed_tasks(username):
+# Función para mostrar y eliminar tareas completadas. Se tratan como archivadas.
+def list_completed_tasks(username):
     try:
         while True:
             # Listar tareas archivadas con índice, solo con estado "completada"
@@ -284,12 +332,12 @@ def list_tasks_with_indices(username, filters=None, mostrar="status"):
         if mostrar == "status":
             # Mostrar tareas con índices
             for i, task in enumerate(task_list, start=1):
-                print(f"{i}. Título: {task['title']}, Descripción: {task['description']}, Estado: {task['status']}, Fecha de vencimiento: {task['due_date']}")
+                print(f"{i}. Título: {task['title']}, Estado: {task['status']}, Fecha de vencimiento: {task['due_date']},\n   Descripción: {task['description']}")
         
         elif mostrar == "label":
             # Mostrar tareas con índices
             for i, task in enumerate(task_list, start=1):
-                print(f"{i}. Título: {task['title']}, Descripción: {task['description']}, Etiqueta: {task['label']}, Fecha de vencimiento: {task['due_date']}")
+                print(f"{i}. Título: {task['title']}, Etiqueta: {task['label']}, Fecha de vencimiento: {task['due_date']},\n   Descripción: {task['description']}")
 
 
         return task_list
@@ -299,15 +347,19 @@ def list_tasks_with_indices(username, filters=None, mostrar="status"):
         print("Ocurrió un error al listar las tareas.")
         return []
 
-# Función para verificar y actualizar el estado de las tareas atrasadas
+# Función que verifica la fecha de las tareas con la actual(local), para ver si una tarea esta atrasada
 def check_and_update_overdue_tasks(username):
     try:
         current_date = datetime.now().date()
+        # Buscar todas las tareas del usuario que no estén completadas
         tasks = tasks_collection.find({"username": username, "status": {"$ne": "completada"}})
-        
+
         for task in tasks:
+            # Convertir la fecha de vencimiento en un objeto date
             due_date = datetime.strptime(task['due_date'], "%Y-%m-%d").date()
+            # Verificar si la tarea está atrasada
             if due_date < current_date and task['status'] != "atrasado":
+                # Actualizar el estado de la tarea a "atrasado"
                 tasks_collection.update_one(
                     {"_id": task["_id"]},
                     {"$set": {"status": "atrasado"}}
@@ -316,29 +368,5 @@ def check_and_update_overdue_tasks(username):
                 
     except Exception as e:
         log_error(f"Error al verificar y actualizar tareas atrasadas para el usuario {username}: {e}")
+        print("Ocurrió un error al verificar y actualizar las tareas atrasadas.")
 
-# Función para cargar etiquetas desde un archivo JSON
-def load_labels(filename="labels.json"):
-    try:
-        with open(filename, "r") as file:
-            data = json.load(file)
-            return data.get("labels", [])
-    except FileNotFoundError:
-        print("Archivo de etiquetas no encontrado. Usando etiquetas por defecto.")
-        return ["urgente", "personal", "trabajo", "proyecto", "sin etiqueta"]
-    except json.JSONDecodeError:
-        print("Error al leer el archivo de etiquetas. Usando etiquetas por defecto.")
-        return ["urgente", "personal", "trabajo", "proyecto", "sin etiqueta"]
-
-# Función para cargar estados desde un archivo JSON
-def load_statuses(filename="statuses.json"):
-    try:
-        with open(filename, "r") as file:
-            data = json.load(file)
-            return data.get("statuses", [])
-    except FileNotFoundError:
-        print("Archivo de estados no encontrado. Usando estados por defecto.")
-        return ["pendiente", "en progreso", "completada"]
-    except json.JSONDecodeError:
-        print("Error al leer el archivo de estados. Usando estados por defecto.")
-        return ["pendiente", "en progreso", "completada"]
