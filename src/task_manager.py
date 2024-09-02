@@ -5,7 +5,7 @@ from datetime import datetime
 from logger import log_info, log_warning, log_error
 
 
-TASKS_FILE = 'tasks.json'
+TASKS_FILE = '../data/tasks.json'
 
 def _read_tasks():
     try:
@@ -24,7 +24,7 @@ def _write_tasks(tasks):
         log_error(f'Error al escribir en el archivo de tareas: {e}')
 
 # Función para cargar etiquetas desde un archivo JSON
-def load_labels(filename="labels.json"):
+def load_labels(filename="data/labels.json"):
     try:
         with open(filename, "r") as file:
             data = json.load(file)
@@ -37,7 +37,7 @@ def load_labels(filename="labels.json"):
         return ["urgente", "personal", "trabajo", "proyecto", "sin etiqueta"]
 
 # Función para cargar estados desde un archivo JSON
-def load_statuses(filename="statuses.json"):
+def load_statuses(filename="data/statuses.json"):
     try:
         with open(filename, "r") as file:
             data = json.load(file)
@@ -190,7 +190,7 @@ def list_tasks_with_indices(username, filters=None, mostrar="status"):
         
         if len(user_tasks) == 0:
             print("No se encontraron tareas.")
-            log_info(f"No se encontraron tareas para el usuario {username}.")
+            log_info(f"No se encontraron tareas para el usuario {username} con filtro {filters}.")
             return []
 
         if mostrar == "status":

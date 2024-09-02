@@ -1,2 +1,4 @@
-# Log file
-*.log
+.git
+.gitignore
+README.md
+requirements.txt

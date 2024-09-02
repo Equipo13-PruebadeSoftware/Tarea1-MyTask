@@ -1,17 +1,19 @@
-# Usar una imagen base de Python
-FROM python:3.10-slim
+# Utilizamos la imagen oficial de Python 3
+FROM python:3.9-slim
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Establecemos el directorio de trabajo en /app
 WORKDIR /app
 
-# Copiar los archivos de tu proyecto al contenedor
-COPY . .
+# Copiamos los archivos del proyecto en el contenedor
+COPY app/ /app/
+COPY data/ /app/data/
+COPY logs/ /app/logs/
 
-# Instalar las dependencias de Python
-RUN pip install --no-cache-dir -r requirements.txt
+# Instalamos las dependencias del proyecto
+RUN pip install -r requirements.txt
 
-# Exponer el puerto en el que correrá tu aplicación (si aplica)
-EXPOSE 8081
+# Exponemos el puerto 8000 para que se pueda acceder al contenedor
+EXPOSE 8000
 
-# Comando para correr la aplicación
+# Establecemos el comando para ejecutar el contenedor
 CMD ["python", "main.py"]

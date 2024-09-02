@@ -3,7 +3,7 @@ import json
 import os
 from logger import log_info, log_warning, log_error
 
-USERS_FILE = 'users.json'
+USERS_FILE = '../data/users.json'
 
 # Función para leer archivo JSON
 def _read_users():
@@ -19,7 +19,7 @@ def _read_users():
 # Función para escribir en archivo JSON
 def _write_users(users):
     try:
-        with open('users.json', 'w') as file:
+        with open(USERS_FILE, 'w') as file:
             json.dump(users, file, indent=4)
     except Exception as e:
         log_error(f'Error al escribir en el archivo de usuarios: {e}')
