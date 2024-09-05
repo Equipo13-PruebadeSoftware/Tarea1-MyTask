@@ -6,7 +6,7 @@ import json
 import re
 
 # Conectar con base de datos
-client = MongoClient('mongodb://mongo:27017/')
+client = MongoClient('mongodb://localhost:27017/')
 db = client['task_manager']
 tasks_collection = db['tasks'] # Colección para tareas
 

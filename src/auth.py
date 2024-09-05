@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from logger import log_info, log_warning, log_error
 
 # Conexión Base de datos
-client = MongoClient('mongodb://mongo:27017/')
+client = MongoClient('mongodb://localhost:27017/')
 db = client['task_manager']
 users_collection = db['users']
 
