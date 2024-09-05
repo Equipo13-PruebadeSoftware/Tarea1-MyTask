@@ -5,7 +5,7 @@ from datetime import datetime
 from logger import log_info, log_warning, log_error
 
 
-TASKS_FILE = 'tasks.json'
+TASKS_FILE = 'data/tasks.json'
 
 def _read_tasks():
     try:

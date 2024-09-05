@@ -3,7 +3,7 @@ import json
 import os
 from logger import log_info, log_warning, log_error
 
-USERS_FILE = 'users.json'
+USERS_FILE = 'data/users.json'
 
 # Función para leer archivo JSON
 def _read_users():

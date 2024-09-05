@@ -43,5 +43,14 @@
                   "status": "pendiente",
                   "created_at": "2024-09-01 20:16:24",
                   "username": "user1"
+         },
+         {
+                  "title": "tarde",
+                  "description": "tarde",
+                  "due_date": "24-10-08",
+                  "label": "urgente",
+                  "status": "completada",
+                  "created_at": "2024-09-04 22:47:23",
+                  "username": "user1"
          }
 ]
