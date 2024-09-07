@@ -90,13 +90,13 @@ def main():
                     check_and_update_overdue_tasks(username)
 
                     print(f"\nTAREAS")
-                    print(f"\nPENDIENTES", "-"*20)
+                    print(f"\nPENDIENTES", "-"*21)
                     list_tasks_with_indices(username, {"status": "pendiente"}, "label")
                     print(f"\nEN PROGRESO", "-"*20)
                     list_tasks_with_indices(username, {"status": "en progreso"}, "label")
                     print(f"\nCOMPLETADAS", "-"*20)
                     list_tasks_with_indices(username, {"status": "completada"}, "label")
-                    print(f"\nATRASADAS", "-"*20)
+                    print(f"\nATRASADAS", "-"*22)
                     list_tasks_with_indices(username, {"status": "atrasado"}, "label")
 
                 
@@ -162,7 +162,13 @@ def main():
                 print("Usuario o contraseña incorrectos")
 
         elif choice == '2':
-            username = input("Ingrese un nombre de usuario: ")
+            username = input("Ingrese un nombre de usuario: ").strip()
+
+            if not username:
+                log_warning("Intento de creación de usuario con nombre vacío.")
+                print("El nombre de usuario no puede estar vacío. No se creó el usuario.")
+                continue
+
             password = input("Ingrese una contraseña: ")
 
             if (create_user(username, password)):

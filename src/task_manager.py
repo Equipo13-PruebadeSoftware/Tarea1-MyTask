@@ -401,11 +401,18 @@ def check_and_update_overdue_tasks(username):
                 updated_tasks.append(task)
                 continue
 
-            if task['username'] == username and task['status'] != "completada":
+            if task['username'] == username:
                 due_date = datetime.strptime(task['due_date'], "%Y-%m-%d").date()
-                if due_date < current_date and task['status'] != "atrasado":
-                    task['status'] = "atrasado"
-                    log_info(f"Estado de la tarea '{task['title']}' actualizado a 'atrasado' para el usuario {username}.")
+
+                # Verificar si la tarea no está completada y está atrasada
+                if task['status'] != "completada":
+                    if due_date < current_date and task['status'] != "atrasado":
+                        task['status'] = "atrasado"
+                        log_info(f"Estado de la tarea '{task['title']}' actualizado a 'atrasado' para el usuario {username}.")
+                    # Verificar si la tarea fue marcada como atrasada pero la fecha de vencimiento fue actualizada
+                    elif due_date >= current_date and task['status'] == "atrasado":
+                        task['status'] = "pendiente"  # O el estado que corresponda
+                        log_info(f"Estado de la tarea '{task['title']}' actualizado de 'atrasado' a 'pendiente' para el usuario {username}.")
             
             updated_tasks.append(task)
         
@@ -415,3 +422,4 @@ def check_and_update_overdue_tasks(username):
     except Exception as e:
         log_error(f"Error al verificar y actualizar tareas atrasadas para el usuario {username}: {e}")
         print("Ocurrió un error al verificar y actualizar las tareas atrasadas.")
+
