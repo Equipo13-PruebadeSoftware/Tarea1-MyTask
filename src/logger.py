@@ -2,7 +2,7 @@ import logging
 
 # Configuración básica del logging
 logging.basicConfig(
-    filename='task_manager.log',
+    filename='logs/task_manager.log',
     level=logging.INFO,
     format='%(asctime)s %(levelname)s: %(message)s'
 )
