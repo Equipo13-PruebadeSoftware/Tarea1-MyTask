@@ -1,5 +1,7 @@
 # Log file
-logs/
+logs/task_manager.log
+!logs/
+
 
 # Entorno virtual de Python
 venv
