@@ -2,7 +2,14 @@ from auth import create_user, authenticate_user
 from logger import log_info, log_warning, log_error
 from task_manager import create_task, update_task, delete_task, list_tasks, change_task_status, list_completed_tasks, check_and_update_overdue_tasks, list_tasks_with_indices, load_labels,load_statuses
 from datetime import datetime
+import os 
 
+def create_dir(name):
+    # Nombre del directorio que deseas crear
+    directorio = name
+    
+    # Crear el directorio y si existe, no hace nada
+    os.makedirs(directorio, exist_ok=True)
 
 # funcion para alplicar filtros
 def apply_filters():
@@ -184,4 +191,5 @@ def main():
 
 
 if __name__ == "__main__": 
+    create_dir("logs")
     main()
