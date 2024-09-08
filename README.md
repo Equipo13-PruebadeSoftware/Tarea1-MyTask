@@ -1,8 +1,5 @@
 # Tarea1-MyTask
-## Autores
-Equipo 13
-- Pablo campos
-- Luis Zegarra
+
 ## Descripción
 Implementación de una aplicación monolítica para la gestión de tareas a través de la consola. La aplicación permite crear, borrar, editar y actualizar tareas, funcionando como una lista de tareas (TO-DO list).
 
@@ -53,6 +50,11 @@ Una vez ejecutada la aplicación, se desplegará un menú en la consola similar 
 Si no tienes un usuario registrado, regístrate primero y luego inicia sesión. Si ya tienes un usuario, inicia sesión directamente. Una vez autenticado, podrás acceder a todas las opciones disponibles.
 
 ![alt text](img/Captura%20de%20pantalla%202024-09-07%20a%20la(s)%2011.47.44 p. m..png)
+
+## Autores
+Equipo 13
+- Pablo campos
+- Luis Zegarra
 
 ## Cómo contribuir
 Este proyecto es parte de una tarea universitaria, por lo que no se aceptan contribuciones externas. Sin embargo, puedes utilizarlo y modificarlo a tu gusto.
