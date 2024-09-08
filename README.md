@@ -3,7 +3,7 @@
 ## Descripción
 Implementación de una aplicación monolítica para la gestión de tareas a través de la consola. La aplicación permite crear, borrar, editar y actualizar tareas, funcionando como una lista de tareas (TO-DO list).
 
-Puede obtener más información sobre el proceso de trabajo en el documento PDF adjunto. [Haga clic aquí]()
+Puede obtener más información sobre el proceso de trabajo en el documento PDF adjunto. [Haga clic aquí](https://github.com/Equipo13-PruebadeSoftware/Tarea1-MyTask/blob/main/DocumentoEquipo13.pdf)
 
 ![alt text](img/image.png)
 
