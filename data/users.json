@@ -1,26 +1,3 @@
 [
-    {
-        "username": "user1",
-        "password": "$2b$12$ShkJo37/WTV0aZVoLnCebeTpHfTb93u29DzkRmznUP1wT6c/Ic8zW"
-    },
-    {
-        "username": " ",
-        "password": "$2b$12$JTSz0KlY/ZIcsfdvFftXOOsoQdR9qYhljbbdqrOEFGojlZ9h3XJ4q"
-    },
-    {
-        "username": "aqw",
-        "password": "$2b$12$pdy.sE5.ndlSGW90EUPfN.MqzzEyABcd3PZ6APPXoqbuMxeQO7c8u"
-    },
-    {
-        "username": "Salmon",
-        "password": "$2b$12$wn618k6c5QG6.u0VBB/XeO6G7AyBeVcZ2EbZygmxB566/aoEV2qfG"
-    },
-    {
-        "username": "ramon",
-        "password": "$2b$12$YlKhHLlOwnkMFAIfEP.5X.COCvkziQAXNVrlOyK4suvaQpNHIlWry"
-    },
-    {
-        "username": "docker",
-        "password": "$2b$12$e2gsXOYmlU5vYBCPvj7dlO2IQXyjsMkZF.oRur90gvB5m9Hdzy6gm"
-    }
+
 ]
