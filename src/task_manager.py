@@ -24,7 +24,7 @@ def _write_tasks(tasks):
         log_error(f'Error al escribir en el archivo de tareas: {e}')
 
 # Función para cargar etiquetas desde un archivo JSON
-def load_labels(filename="labels.json"):
+def load_labels(filename="data/labels.json"):
     try:
         with open(filename, "r") as file:
             data = json.load(file)
@@ -37,7 +37,7 @@ def load_labels(filename="labels.json"):
         return ["urgente", "personal", "trabajo", "proyecto", "sin etiqueta"]
 
 # Función para cargar estados desde un archivo JSON
-def load_statuses(filename="statuses.json"):
+def load_statuses(filename="data/statuses.json"):
     try:
         with open(filename, "r") as file:
             data = json.load(file)

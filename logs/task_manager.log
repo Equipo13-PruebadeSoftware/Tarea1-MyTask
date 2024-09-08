@@ -1,0 +1,92 @@
+2024-09-04 22:59:30,668 INFO: Usuario no encontrado: user1
+2024-09-04 22:59:30,669 WARNING: Intento fallido de autenticación para el usuario user1
+2024-09-04 22:59:50,125 INFO: Usuario registrado: aqw
+2024-09-04 22:59:56,533 INFO: Usuario no encontrado: aqw
+2024-09-04 22:59:56,533 WARNING: Intento fallido de autenticación para el usuario aqw
+2024-09-04 23:00:34,298 INFO: Autenticación exitosa para el usuario: user1
+2024-09-04 23:00:34,298 INFO: Usuario user1 autenticado exitosamente
+2024-09-04 23:00:34,303 INFO: No se encontraron tareas para el usuario user1.
+2024-09-04 23:07:21,815 INFO: Usuario registrado: aqw
+2024-09-04 23:07:28,439 INFO: Autenticación exitosa para el usuario: aqw
+2024-09-04 23:07:28,439 INFO: Usuario aqw autenticado exitosamente
+2024-09-04 23:07:28,439 INFO: No se encontraron tareas para el usuario aqw.
+2024-09-04 23:07:28,440 INFO: No se encontraron tareas para el usuario aqw.
+2024-09-04 23:07:28,440 INFO: No se encontraron tareas para el usuario aqw.
+2024-09-04 23:07:28,440 INFO: No se encontraron tareas para el usuario aqw.
+2024-09-07 16:59:13,889 WARNING: Intento de creación de usuario con nombre vacío.
+2024-09-07 16:59:27,847 INFO: Usuario registrado: Salmon
+2024-09-07 16:59:59,683 INFO: Autenticación exitosa para el usuario: user1
+2024-09-07 16:59:59,683 INFO: Usuario user1 autenticado exitosamente
+2024-09-07 16:59:59,688 ERROR: Error al verificar y actualizar tareas atrasadas para el usuario user1: time data '24-10-08' does not match format '%Y-%m-%d'
+2024-09-07 16:59:59,688 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:01:17,871 WARNING: No se ingersó titulo para tarea. No se creó la tarea.
+2024-09-07 17:01:17,874 ERROR: Error al verificar y actualizar tareas atrasadas para el usuario user1: time data '24-10-08' does not match format '%Y-%m-%d'
+2024-09-07 17:01:17,875 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:02:02,324 INFO: Tarea creada para el usuario user1
+2024-09-07 17:02:02,324 ERROR: Error al verificar y actualizar tareas atrasadas para el usuario user1: time data '24-10-08' does not match format '%Y-%m-%d'
+2024-09-07 17:02:02,325 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:03:21,417 INFO: Tarea actualizada por el usuario user1
+2024-09-07 17:03:21,418 ERROR: Error al verificar y actualizar tareas atrasadas para el usuario user1: time data '24-10-08' does not match format '%Y-%m-%d'
+2024-09-07 17:03:21,419 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:04:05,769 INFO: Tarea eliminada por el usuario user1
+2024-09-07 17:04:05,769 ERROR: Error al verificar y actualizar tareas atrasadas para el usuario user1: time data '24-10-08' does not match format '%Y-%m-%d'
+2024-09-07 17:04:05,770 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:04:17,972 INFO: Listado de tareas consultado para el usuario user1
+2024-09-07 17:04:17,972 ERROR: Error al verificar y actualizar tareas atrasadas para el usuario user1: time data '24-10-08' does not match format '%Y-%m-%d'
+2024-09-07 17:04:17,973 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:04:58,367 INFO: Tarea actualizada por el usuario user1
+2024-09-07 17:04:58,369 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:05:09,004 INFO: Listado de tareas consultado para el usuario user1
+2024-09-07 17:05:09,007 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:05:58,333 INFO: Estado de tarea actualizado: tarde por el usuario user1 a en progreso
+2024-09-07 17:05:58,335 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:06:40,890 INFO: Tarea actualizada por el usuario user1
+2024-09-07 17:06:40,891 INFO: Estado de la tarea 'tarde' actualizado a 'atrasado' para el usuario user1.
+2024-09-07 17:06:52,269 WARNING: No se ingersó titulo para tarea. No se creó la tarea.
+2024-09-07 17:07:07,957 INFO: Tarea actualizada por el usuario user1
+2024-09-07 17:07:07,957 INFO: Estado de la tarea 'tarde' actualizado de 'atrasado' a 'pendiente' para el usuario user1.
+2024-09-07 17:07:07,959 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 17:07:51,029 INFO: No se encontraron tareas para el usuario user1.
+2024-09-07 23:47:33,300 INFO: Usuario registrado: ramon
+2024-09-07 23:47:38,338 INFO: Autenticación exitosa para el usuario: ramon
+2024-09-07 23:47:38,339 INFO: Usuario ramon autenticado exitosamente
+2024-09-07 23:47:38,340 INFO: No se encontraron tareas para el usuario ramon.
+2024-09-07 23:47:38,340 INFO: No se encontraron tareas para el usuario ramon.
+2024-09-07 23:47:38,341 INFO: No se encontraron tareas para el usuario ramon.
+2024-09-07 23:47:38,341 INFO: No se encontraron tareas para el usuario ramon.
+2024-09-08 01:16:03,363 INFO: Autenticación exitosa para el usuario: user1
+2024-09-08 01:16:03,364 INFO: Usuario user1 autenticado exitosamente
+2024-09-08 01:16:03,368 INFO: No se encontraron tareas para el usuario user1.
+2024-09-08 04:57:09,442 INFO: Usuario registrado: docker
+2024-09-08 04:57:15,963 INFO: Autenticación exitosa para el usuario: docker
+2024-09-08 04:57:15,963 INFO: Usuario docker autenticado exitosamente
+2024-09-08 04:57:15,966 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:57:15,967 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:57:15,967 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:57:15,967 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:57:31,684 INFO: Tarea creada para el usuario docker
+2024-09-08 04:57:31,699 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:57:31,700 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:57:31,700 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:58:06,770 WARNING: No se ingersó titulo para tarea. No se creó la tarea.
+2024-09-08 04:58:06,776 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:58:06,777 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:58:06,777 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:58:27,820 INFO: Tarea actualizada por el usuario docker
+2024-09-08 04:58:27,825 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:58:27,826 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 04:58:27,827 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:08,490 INFO: Autenticación exitosa para el usuario: docker
+2024-09-08 05:02:08,491 INFO: Usuario docker autenticado exitosamente
+2024-09-08 05:02:08,498 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:08,498 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:08,499 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:30,131 INFO: Tarea creada para el usuario docker
+2024-09-08 05:02:30,133 ERROR: Error al verificar y actualizar tareas atrasadas para el usuario docker: time data '20-12-11' does not match format '%Y-%m-%d'
+2024-09-08 05:02:30,136 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:30,140 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:30,142 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:53,928 INFO: Tarea actualizada por el usuario docker
+2024-09-08 05:02:53,929 INFO: Estado de la tarea 'test' actualizado a 'atrasado' para el usuario docker.
+2024-09-08 05:02:53,931 INFO: No se encontraron tareas para el usuario docker.
+2024-09-08 05:02:53,932 INFO: No se encontraron tareas para el usuario docker.

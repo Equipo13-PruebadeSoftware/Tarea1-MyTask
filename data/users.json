@@ -14,5 +14,13 @@
     {
         "username": "Salmon",
         "password": "$2b$12$wn618k6c5QG6.u0VBB/XeO6G7AyBeVcZ2EbZygmxB566/aoEV2qfG"
+    },
+    {
+        "username": "ramon",
+        "password": "$2b$12$YlKhHLlOwnkMFAIfEP.5X.COCvkziQAXNVrlOyK4suvaQpNHIlWry"
+    },
+    {
+        "username": "docker",
+        "password": "$2b$12$e2gsXOYmlU5vYBCPvj7dlO2IQXyjsMkZF.oRur90gvB5m9Hdzy6gm"
     }
 ]
