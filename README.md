@@ -15,12 +15,10 @@ git clone https://github.com/Equipo13-PruebadeSoftware/Tarea1-MyTask.git
 1. Construir imagen Docker:
 ```
 docker build -t nombre_del_contenedor .
-
 ```
 2. Ejecuta el contenedor con el volumen montado:
 ```
 docker run -v $(pwd)/Tarea1-MyTask/data:/app/data -v $(pwd)/Tarea1-MyTask/logs:/app/logs -it nombre_del_contenedor
-
 ```
 Esto es para que los cambios sean almacenados dentro de la carpeta data y logs, de esta forma guardar los cambios a nivel local.
 `$(pdw)` debe ser reemplazado por la direccion a la carpeta /Tarea1-MyTask/data y /Tarea1-MyTask/logs donde los has clonado.
@@ -29,7 +27,6 @@ Esto es para que los cambios sean almacenados dentro de la carpeta data y logs, 
 1. Instalar dependecias para bcrypt:
 ```
 python3 -m pip install bcrypt
-
 ```
 
 Con esto puede verificar que quedo correctamente instalado:
