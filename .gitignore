@@ -2,7 +2,11 @@
 *.class
 
 # Log file
+<<<<<<< HEAD
 logs/task_manager.log
+=======
+./logs/task_manager.log
+>>>>>>> c75b5ce (merge ramajason a main, cambios en docker y almacenamieto en JSON)
 
 # BlueJ files
 *.ctxt
@@ -24,4 +28,8 @@ hs_err_pid*
 replay_pid*
 
 # Entorno virtual de Python
+<<<<<<< HEAD
 venv/
+=======
+./venv
+>>>>>>> c75b5ce (merge ramajason a main, cambios en docker y almacenamieto en JSON)
