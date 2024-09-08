@@ -60,4 +60,3 @@ Equipo 13
 Este proyecto es parte de una tarea universitaria, por lo que no se aceptan contribuciones externas. Sin embargo, puedes utilizarlo y modificarlo a tu gusto.
 ## Licencia
 Este proyecto está bajo una licencia informal otorgada por el equipo.
-[ ] docker colocar el byscrip 
