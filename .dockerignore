@@ -1,2 +1,4 @@
-# Log file
-*.log
+./logs
+Dockerfile
+./venv
+./img
