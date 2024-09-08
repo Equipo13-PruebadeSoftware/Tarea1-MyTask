@@ -9,20 +9,41 @@ Implementación de una aplicación monolítica para la gestión de tareas a trav
 ![alt text](img/image.png)
 
 ## Instalación
-1. Clona el repositorio
+1. Clona el repositorio:
 ```
-git clone
-```
-
-2. Navegar al directorio del proyecto
-```
-cd Tarea1-MyTask
+git clone https://github.com/Equipo13-PruebadeSoftware/Tarea1-MyTask.git
 ```
 
-3. Instalar dependencias
+### Opción Docker
+1. Construir imagen Docker:
 ```
-pip install 
+docker build -t nombre_del_contenedor .
+
 ```
+2. Ejecuta el contenedor con el volumen montado:
+```
+docker run -v $(pwd)/Tarea1-MyTask/data:/app/data -v $(pwd)/Tarea1-MyTask/logs:/app/logs -it nombre_del_contenedor
+
+```
+Esto es para que los cambios sean almacenados dentro de la carpeta data y logs, de esta forma guardar los cambios a nivel local.
+`$(pdw)` debe ser reemplazado por la direccion a la carpeta /Tarea1-MyTask/data y /Tarea1-MyTask/logs donde los has clonado.
+
+### Opción Terminal
+1. Instalar dependecias para bcrypt:
+```
+python3 -m pip install bcrypt
+
+```
+
+Con esto puede verificar que quedo correctamente instalado:
+```
+python3 -m pip show bcrypt
+```
+2. Ejecutar programa en consola:
+```
+python3 Tarea1-MyTask/src/main.py
+```
+Si ya estas en el directorio Tarea1-MyTask, omite esto y solo utiliza `src/main.py`
 
 ## Cómo usar
 Una vez ejecutada la aplicación, se desplegará un menú en la consola similar al siguiente:
