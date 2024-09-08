@@ -2,7 +2,7 @@
 *.class
 
 # Log file
-./logs/task_manager.log
+logs/task_manager.log
 
 # BlueJ files
 *.ctxt
@@ -24,4 +24,4 @@ hs_err_pid*
 replay_pid*
 
 # Entorno virtual de Python
-./venv
+venv/
